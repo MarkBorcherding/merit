@@ -12,11 +12,26 @@ describe 'Merit model additions' do
       its(:category) { should be_nil }
     end
 
-    describe 'updates the points sum' do
-      subject { user.points }
-      it '{ should == 10 }'
+  end
+
+
+  describe '#create_sash_if_none' do
+    describe 'when no sash exists' do
+      let(:user) { User.create }
+      before { user.create_sash_if_none }
+      it { user.sash.should_not be_nil }
+      it { user.sash.sashable.should == user }
     end
 
+    describe 'when a sash already exist' do
+      let(:user) { User.create }
+      before do
+        user.create_sash_if_none
+        @first_sash = user.sash
+        user.create_sash_if_none
+      end
+      it { user.sash.should == @first_sash }
+    end
   end
 
 end

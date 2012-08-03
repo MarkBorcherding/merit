@@ -3,7 +3,7 @@ module Merit
 
   module ClassMethods
     def has_merit(options = {})
-      belongs_to :sash
+      has_one :sash, :as => :sashable
 
       if Merit.orm == :mongo_mapper
         plugin Merit
