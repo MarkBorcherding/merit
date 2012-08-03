@@ -21,6 +21,8 @@ describe Merit::PointRulesMethods do
         score 11, :on => ["foos#create", "foos#update"]
         score 12, :on => "bars#update", :to => :someone_else
         score 13, :on => "bars#create", :to => [:someone_else, :same_someone]
+        score 14, :on => "bazs#update", :in => :strength
+        score 15, :on => "bazs#show", :in => [:strength, :charisma]
       end
     end
     let(:actions) { PointRules2.new.actions_to_point }
@@ -52,6 +54,19 @@ describe Merit::PointRulesMethods do
       it { subject[:to].should == [:someone_else, :same_someone] }
     end
 
+    describe "rule with point category" do
+      subject { actions["bazs#update"] }
+      it { subject[:score].should == 14 }
+      it { subject[:to].should == [:action_user] }
+      it { subject[:in].should == [ :strength ] }
+    end
+
+    describe "rule with multiple point categories" do
+      subject { actions["bazs#show"] }
+      it { subject[:score].should == 15 }
+      it { subject[:to].should == [:action_user] }
+      it { subject[:in].should == [:strength, :charisma] }
+    end
   end
 
 
