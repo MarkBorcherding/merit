@@ -4,7 +4,7 @@ require 'generators/active_record/install_generator'
 describe ActiveRecord::Generators::InstallGenerator do
 
   # Tell the generator where to put its output (what it thinks of as Rails.root)
-  destination File.expand_path("../../../tmp", __FILE__)
+  destination TestApp::Application.config.root
 
   before { prepare_destination }
 
@@ -21,6 +21,11 @@ describe ActiveRecord::Generators::InstallGenerator do
     end
     describe 'create_badges_sashes.rb' do
       subject { file('db/migrate/create_badges_sashes.rb') }
+      it { should be_a_migration }
+    end
+
+    describe 'create_awarded_point.rb' do
+      subject { file('db/migrate/create_awarded_points.rb') }
       it { should be_a_migration }
     end
 

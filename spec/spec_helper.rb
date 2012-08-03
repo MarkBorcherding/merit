@@ -37,7 +37,8 @@ def migrations
     require 'generators/active_record/templates/create_merit_actions'
     require 'generators/active_record/templates/create_sashes'
     require 'generators/active_record/templates/create_badges_sashes'
-    [ CreateMeritActions, CreateSashes, CreateBadgesSashes ]
+    require 'generators/active_record/templates/create_awarded_points'
+    [ CreateMeritActions, CreateSashes, CreateBadgesSashes, CreateAwardedPoints ]
 end
 
 require 'db_helper'

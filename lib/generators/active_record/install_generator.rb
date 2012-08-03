@@ -20,6 +20,7 @@ module ActiveRecord
         migration_template 'create_merit_actions.rb', 'db/migrate/create_merit_actions.rb'
         migration_template 'create_sashes.rb', 'db/migrate/create_sashes.rb'
         migration_template 'create_badges_sashes.rb', 'db/migrate/create_badges_sashes.rb'
+        migration_template 'create_awarded_points.rb', 'db/migrate/create_awarded_points.rb'
       end
     end
   end
