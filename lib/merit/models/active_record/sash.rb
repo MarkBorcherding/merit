@@ -1,5 +1,6 @@
 class Sash < ActiveRecord::Base
   has_many :badges_sashes
+  has_many :awarded_points
 
   def badge_ids
     badges_sashes.collect(&:badge_id)

@@ -41,7 +41,7 @@ module Merit
       if Merit.orm == :active_record
         require "merit/models/#{Merit.orm}/sash"
         require "merit/models/#{Merit.orm}/badges_sash"
-        require "merit/models/#{Merit.orm}/awarded_pointasdasd"
+        require "merit/models/#{Merit.orm}/awarded_point"
       elsif Merit.orm == :mongoid
         require "merit/models/#{Merit.orm}/sash"
       end
