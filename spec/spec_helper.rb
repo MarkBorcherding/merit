@@ -16,7 +16,7 @@ rescue Bundler::GemNotFound
     "Did you run \`bundlee install\`?"
 end
 Bundler.require
-
+require 'lib/merit'
 require 'ammeter/init'
 
 
@@ -49,3 +49,4 @@ module TestApp
     config.root = File.expand_path "../../tmp/app/", __FILE__
   end
 end
+
