@@ -14,19 +14,23 @@ module Merit
         has_one :sash, :as => :sashable
         alias_method :original_sash, :sash
         def sash() original_sash || create_sash end
-        alias_method :create_sash_if_none, :sash
+        alias_method :create_sash_if_none, :sash # TODO remove this eventually
 
-        has_many :badges, :through => :sash
-
-        def award_points(points)
-          sash.awarded_points.create :points => points
+        def badges
+          sash.badge_ids.collect{|b_id| Badge.find(b_id) }
         end
 
+        def award_points(points, options={})
+          params = {
+            :points => points,
+            :category => options[:in]
+          }
+          sash.awarded_points.create params
+        end
       end
-
     end
-  end
 
+  end
 end
 
 ActiveRecord::Base.send :include, Merit
