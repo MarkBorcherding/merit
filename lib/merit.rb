@@ -4,7 +4,6 @@ require 'merit/rules_badge'
 require 'merit/rules_points'
 require 'merit/rules_rank'
 require 'merit/controller_extensions'
-require 'merit/model_additions'
 
 module Merit
   # Check rules on each request
@@ -14,6 +13,8 @@ module Merit
   # Define ORM
   mattr_accessor :orm
   @@orm = :active_record
+
+  require "merit/models/#{Merit.orm}/model_additions"
 
   # Define user_model_name
   mattr_accessor :user_model_name
