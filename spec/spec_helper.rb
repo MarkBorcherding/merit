@@ -43,3 +43,8 @@ end
 require 'db_helper'
 clean_database!
 
+module TestApp
+  class Application < Rails::Application
+    config.root = File.expand_path "../../tmp/app/", __FILE__
+  end
+end
