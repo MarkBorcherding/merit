@@ -1,46 +1,33 @@
 # encoding: utf-8
 $LOAD_PATH << "." unless $LOAD_PATH.include?(".")
-begin
-  require "rubygems"
-  require "bundler"
 
-  if Gem::Version.new(Bundler::VERSION) <= Gem::Version.new("0.9.5")
-    raise RuntimeError, "Your bundler version is too old." +
-      "Run `gem install bundler` to upgrade."
-  end
-
-  # Set up load paths for all bundled gems
-  Bundler.setup
-rescue Bundler::GemNotFound
-  raise RuntimeError, "Bundler couldn't find some gems." +
-    "Did you run \`bundlee install\`?"
-end
-require 'ammeter/init'
-
-require File.expand_path '../dummy/config/environment', __FILE__
-
-
-# These models have their tables cleaned during clean_database!
-def test_models
-  []
-end
+ENV['RAILS_ENV'] = 'test'
+require File.expand_path('../dummy/config/environment', __FILE__)
 
 # These tables are created during the migrations and are deleted if
 # they are present during the initial setup
-def migration_tables
-  [ :sashes, :badges_sashes, :merit_actions, :awarded_points ]
+def delete_migration_tables
+  [ :sashes, :badges_sashes, :merit_actions, :awarded_points ].each do |t|
+    begin
+      ActiveRecord::Base.connection.execute "DROP TABLE #{t}"
+    rescue ActiveRecord::StatementInvalid
+    end
+  end
 end
 
 # Run these migrations during setup the database. This lets us test the migrations as
 # part of the
 def migrations
-    require 'generators/active_record/templates/create_merit_actions'
-    require 'generators/active_record/templates/create_sashes'
-    require 'generators/active_record/templates/create_badges_sashes'
-    require 'generators/active_record/templates/create_awarded_points'
-    [ CreateMeritActions, CreateSashes, CreateBadgesSashes, CreateAwardedPoints ]
+  require 'generators/active_record/templates/create_merit_actions'
+  require 'generators/active_record/templates/create_sashes'
+  require 'generators/active_record/templates/create_badges_sashes'
+  require 'generators/active_record/templates/create_awarded_points'
+  [ CreateMeritActions, CreateSashes, CreateBadgesSashes, CreateAwardedPoints ]
 end
 
-require 'db_helper'
-clean_database!
+def redo_migrations
+  delete_migration_tables
+  migrations.each { |m| m.up }
+end
 
+require 'ammeter/init'

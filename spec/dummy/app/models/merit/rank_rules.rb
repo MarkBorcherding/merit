@@ -13,17 +13,12 @@ module Merit
     include Merit::RankRulesMethods
 
     def initialize
-      # set_rank :level => 1, :to => Commiter.active do |commiter|
-      #   commiter.repositories.count > 1 && commiter.followers >= 10
-      # end
-      #
-      # set_rank :level => 2, :to => Commiter.active do |commiter|
-      #   commiter.branches.count > 1 && commiter.followers >= 10
-      # end
-      #
-      # set_rank :level => 3, :to => Commiter.active do |commiter|
-      #   commiter.branches.count > 2 && commiter.followers >= 20
-      # end
+      # i stars for i chars name
+      (1..5).each do |i|
+        set_rank :level => i, :to => User do |user|
+          user.name.length == i
+        end
+      end
     end
   end
 end
