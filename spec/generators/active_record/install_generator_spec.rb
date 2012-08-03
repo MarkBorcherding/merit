@@ -15,10 +15,12 @@ describe ActiveRecord::Generators::InstallGenerator do
       subject { file('db/migrate/create_merit_actions.rb') }
       it { should be_a_migration }
     end
+
     describe 'create_sashes.rb' do
       subject { file('db/migrate/create_sashes.rb') }
       it { should be_a_migration }
     end
+
     describe 'create_badges_sashes.rb' do
       subject { file('db/migrate/create_badges_sashes.rb') }
       it { should be_a_migration }
@@ -26,6 +28,11 @@ describe ActiveRecord::Generators::InstallGenerator do
 
     describe 'create_awarded_point.rb' do
       subject { file('db/migrate/create_awarded_points.rb') }
+      it { should be_a_migration }
+    end
+
+    describe 'make_sash_polymorphic.rb' do
+      subject { file('db/migrate/make_sash_polymorphic.rb') }
       it { should be_a_migration }
     end
 

@@ -21,6 +21,7 @@ module ActiveRecord
         migration_template 'create_sashes.rb', 'db/migrate/create_sashes.rb'
         migration_template 'create_badges_sashes.rb', 'db/migrate/create_badges_sashes.rb'
         migration_template 'create_awarded_points.rb', 'db/migrate/create_awarded_points.rb'
+        migration_template 'make_sash_polymorphic.rb', 'db/migrate/make_sash_polymorphic.rb'
       end
     end
   end

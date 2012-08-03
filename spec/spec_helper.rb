@@ -12,7 +12,7 @@ def migrations
   require 'generators/active_record/templates/create_sashes'
   require 'generators/active_record/templates/create_badges_sashes'
   require 'generators/active_record/templates/create_awarded_points'
-  require 'generators/active_record/templates/make_sash_polymorphic_back_to_target'
+  require 'generators/active_record/templates/make_sash_polymorphic'
   [ CreateMeritActions,
     CreateSashes,
     CreateBadgesSashes,
