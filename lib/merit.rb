@@ -1,3 +1,4 @@
+require 'rails/engine'
 require 'merit/rule'
 require 'merit/rules_badge'
 require 'merit/rules_points'
