@@ -12,4 +12,10 @@ describe Sash do
     end
   end
 
+  describe "#badges" do
+    subject { Sash.create.badges }
+    it { should be_empty }
+
+  end
+
 end

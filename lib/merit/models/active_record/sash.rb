@@ -3,9 +3,9 @@ class Sash < ActiveRecord::Base
   has_many :awarded_points
   belongs_to :sashable, :polymorphic => true
 
-  def badge_ids
-    badges_sashes.collect(&:badge_id)
-  end
+  def badges() badges_sashes.map(&:badge) end
+
+  def badge_ids() badges_sashes.collect(&:badge_id) end
 
   def add_badge(badge_id)
     bs = BadgesSash.new
@@ -13,6 +13,7 @@ class Sash < ActiveRecord::Base
     bs.badge_id = badge_id
     bs.save
   end
+
   def rm_badge(badge_id)
     badges_sashes = BadgesSash.where(:badge_id => badge_id, :sash_id => self.id)
     # ActiveRecord::Relation#delete|destroy(_all) doesn't work with composite keys.

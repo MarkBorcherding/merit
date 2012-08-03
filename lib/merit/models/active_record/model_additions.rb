@@ -16,9 +16,7 @@ module Merit
         def sash() original_sash || create_sash end
         alias_method :create_sash_if_none, :sash # TODO remove this eventually
 
-        def badges
-          sash.badge_ids.collect{|b_id| Badge.find(b_id) }
-        end
+        delegate :badges, :to => :sash
 
         def award_points(points, options={})
           params = {
