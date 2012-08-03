@@ -25,9 +25,15 @@ def migrations
   [ CreateMeritActions, CreateSashes, CreateBadgesSashes, CreateAwardedPoints ]
 end
 
-def redo_migrations
+def redo_migrations!
   delete_migration_tables
-  migrations.each { |m| m.up }
+  begin
+    ActiveRecord::Migration.verbose = false
+    migrations.each { |m| m.up }
+  rescue ActiveRecord::StatementInvalid
+  end
 end
+redo_migrations!
+
 
 require 'ammeter/init'

@@ -22,6 +22,11 @@ module Merit
     end
   end
 
+  def award_points(points)
+    create_sash_if_none
+    sash.awarded_points.create :points => points
+  end
+
   def badges
     create_sash_if_none
     sash.badge_ids.collect{|b_id| Badge.find(b_id) }
