@@ -23,6 +23,8 @@ describe Merit::PointRulesMethods do
         score 13, :on => "bars#create", :to => [:someone_else, :same_someone]
         score 14, :on => "bazs#update", :in => :strength
         score 15, :on => "bazs#show", :in => [:strength, :charisma]
+        score 16, :on => 'foo#show', :to => :someone
+        score 17, :on => 'foo#show', :to => :someone_else
       end
     end
     let(:actions) { PointRules2.new.actions_to_point }
@@ -66,6 +68,12 @@ describe Merit::PointRulesMethods do
       it { subject[:score].should == 15 }
       it { subject[:to].should == [:action_user] }
       it { subject[:in].should == [:strength, :charisma] }
+    end
+
+    describe 'multiple points for the same actions' do
+      subject { actions["foo#show"] }
+      it { subject.map { |p| p[:score] }.should == [16,17] }
+      it { subject.map { |p| p[:to] }.should == [[:someone],[:someone_else]] }
     end
   end
 
