@@ -5,7 +5,7 @@ require 'generators/active_record/install_generator'
 describe Merit::Generators::InstallGenerator do
 
   # Tell the generator where to put its output (what it thinks of as Rails.root)
-  destination TestApp::Application.config.root
+  destination Dummy::Application.config.root
 
 
   describe 'with ActiveRecord' do

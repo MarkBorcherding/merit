@@ -2,7 +2,7 @@ require 'active_record'
 # set adapter to use, default is sqlite3
 # to use an alternative adapter run => rake spec DB='postgresql'
 db_name = ENV['DB'] || 'sqlite3'
-database_yml = File.expand_path('../database.yml', __FILE__)
+database_yml = File.expand_path('../dummy/config/database.yml', __FILE__)
 
 def drop_migration_tables!
   migration_tables.each do |table_name|
@@ -30,6 +30,7 @@ if File.exists?(database_yml)
     ActiveRecord::Base.connection
   rescue SQLite3::CantOpenException
     db_dir = File.dirname(File.expand_path(config["database"]))
+    raise db_dir
     FileUtils.mkdir_p db_dir
     ActiveRecord::Base.establish_connection(db_name)
     ActiveRecord::Base.connection

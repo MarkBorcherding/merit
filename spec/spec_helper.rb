@@ -15,9 +15,9 @@ rescue Bundler::GemNotFound
   raise RuntimeError, "Bundler couldn't find some gems." +
     "Did you run \`bundlee install\`?"
 end
-Bundler.require
-require 'lib/merit'
 require 'ammeter/init'
+
+require File.expand_path '../dummy/config/environment', __FILE__
 
 
 # These models have their tables cleaned during clean_database!
@@ -43,10 +43,4 @@ end
 
 require 'db_helper'
 clean_database!
-
-module TestApp
-  class Application < Rails::Application
-    config.root = File.expand_path "../../tmp/app/", __FILE__
-  end
-end
 
