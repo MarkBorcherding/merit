@@ -13,6 +13,10 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'haml'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'simplecov'
+
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency 'ammeter', '~> 0.2.8'
+
   # Testing with Mongoid
   s.add_development_dependency 'bson_ext'
   s.add_development_dependency 'mongoid', '~> 2.0.0'
