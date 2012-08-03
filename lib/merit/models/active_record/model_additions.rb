@@ -2,28 +2,31 @@ module Merit
   extend ActiveSupport::Concern
 
   module ClassMethods
+
+    # Lets us decide if a class can accept merit
+    def meritable?() false end
+
     def has_merit(options = {})
-      has_one :sash, :as => :sashable
+      return if meritable?
+      class_eval do
+        def meritable?() true end
+
+        has_one :sash, :as => :sashable
+        alias_method :original_sash, :sash
+        def sash() original_sash || create_sash end
+        alias_method :create_sash_if_none, :sash
+
+        has_many :badges, :through => :sash
+
+        def award_points(points)
+          sash.awarded_points.create :points => points
+        end
+
+      end
+
     end
   end
 
-  def award_points(points)
-    create_sash_if_none
-    sash.awarded_points.create :points => points
-  end
-
-  def badges
-    create_sash_if_none
-    sash.badge_ids.collect{|b_id| Badge.find(b_id) }
-  end
-
-  # Create sash if doesn't have
-  def create_sash_if_none
-    if self.sash.blank?
-      self.sash = Sash.create
-      self.save(:validate => false)
-    end
-  end
 end
 
 ActiveRecord::Base.send :include, Merit
