@@ -7,15 +7,16 @@ module Merit
     def score(points, *args, &block)
       options = args.extract_options!
 
-      actions = [options[:on]].flatten
-      targets = [options[:to] || :action_user].flatten
-      categories = [options[:in]].flatten
+      targets = Array.wrap(options[:to] || :action_user)
+      actions = Array.wrap(options[:on])
+      categories = Array.wrap(options[:in])
 
       actions.each do |action|
-        actions_to_point[action] = {
-          :to => targets,
+        actions_to_point[action] ||= []
+        actions_to_point[action] << {
           :score => points,
-          :in => categories
+          :in => categories,
+          :to => targets
         }
       end
     end

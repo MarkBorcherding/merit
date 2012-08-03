@@ -29,7 +29,7 @@ describe Merit::PointRulesMethods do
     it { actions.should_not be_empty }
 
     describe "Simple point rules" do
-      subject { actions["users#create"] }
+      subject { actions["users#create"].first }
       it { subject[:score].should == 10 }
       it { subject[:to].should == [:action_user] }
     end
@@ -37,32 +37,32 @@ describe Merit::PointRulesMethods do
     describe "multiple actions rule" do
       subject { actions }
       ["foos#create", "foos#update"].each do |action|
-        it { actions[action][:score].should == 11 }
-        it { actions[action][:to].should == [:action_user] }
+        it { actions[action].first[:score].should == 11 }
+        it { actions[action].first[:to].should == [:action_user] }
       end
     end
 
     describe "other target rules" do
-      subject { actions["bars#update"] }
+      subject { actions["bars#update"].first }
       it { subject[:score].should == 12 }
       it { subject[:to].should == [:someone_else] }
     end
 
     describe "multiple other target rules" do
-      subject { actions["bars#create"] }
+      subject { actions["bars#create"].first }
       it { subject[:score].should == 13 }
       it { subject[:to].should == [:someone_else, :same_someone] }
     end
 
     describe "rule with point category" do
-      subject { actions["bazs#update"] }
+      subject { actions["bazs#update"].first }
       it { subject[:score].should == 14 }
       it { subject[:to].should == [:action_user] }
       it { subject[:in].should == [ :strength ] }
     end
 
     describe "rule with multiple point categories" do
-      subject { actions["bazs#show"] }
+      subject { actions["bazs#show"].first }
       it { subject[:score].should == 15 }
       it { subject[:to].should == [:action_user] }
       it { subject[:in].should == [:strength, :charisma] }

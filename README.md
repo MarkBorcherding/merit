@@ -4,11 +4,6 @@
 
 [![Build Status](https://secure.travis-ci.org/tute/merit.png?branch=master)](http://travis-ci.org/tute/merit)
 
-
-# Requirements
-
-* ActiveRecord or Mongoid
-
 # Installation
 
 1. Add `gem 'merit'` to your `Gemfile`
@@ -79,9 +74,7 @@ method(s) defined in the `:to` option. Define rules on
 ## Examples
 
 ```ruby
-score 10, :on => [
-  'users#update'
-]
+score 10, :to => :post_creator, :on => 'comments#create'
 
 score 20, :on => [
   'comments#create',
@@ -145,6 +138,7 @@ end
 * :value parameter (for star voting for example) should be configurable
   (depends on params[:value] on the controller).
 * Make fixtures for integration testing (now creating objects on test file!).
+* Rules should be cached? Calling *Rules.new more than once
 
 ---
 
