@@ -30,9 +30,7 @@ class MeritAction
 
     actions_to_point.each do |point_rule|
       point_rule[:to].each do |to|
-        t = target(to)
-        t.points += point_rule[:score]
-        t.save
+        target(to).award_points point_rule[:score], :in => point_rule[:in]
         log!("points_granted:#{point_rule[:score]}")
       end
     end

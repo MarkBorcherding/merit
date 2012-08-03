@@ -56,6 +56,8 @@ describe MeritAction do
           merit_action.check_point_rules
           user.reload
         end
+        it { user.sash.awarded_points.size.should == 1 }
+        it { user.sash.awarded_points.first.points.should == 1 }
         it { user.points.should == 1 }
       end
     end

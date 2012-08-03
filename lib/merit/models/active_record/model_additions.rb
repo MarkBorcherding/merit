@@ -24,6 +24,12 @@ module Merit
             :category => options[:in]
           }
           sash.awarded_points.create params
+
+          # TODO Move this stuff to sash so we don't need to save User to add points.
+          # We can just save Sash. We can also move it to counter cache or the like instead
+          # of just doing it manually.
+          self.points = sash.awarded_points.sum(&:points)
+          save :validate => false
         end
       end
     end
