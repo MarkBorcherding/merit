@@ -9,7 +9,8 @@ module Merit
 
       actions = options[:on].kind_of?(Array) ? options[:on] : [options[:on]]
       options[:to] ||= [:action_user]
-      targets = options[:to].kind_of?(Array) ? options[:to] : [options[:to]]
+      targets = [options[:to]].flatten
+
       actions.each do |action|
         actions_to_point[action] = {
           :to => targets,
