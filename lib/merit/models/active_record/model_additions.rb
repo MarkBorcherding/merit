@@ -9,6 +9,9 @@ module Merit
       alias_method :create_sash_if_none, :lazy_sash_replacement # TODO remove this eventually
 
       delegate :badges, :to => :sash
+
+      delegate :total_points, :to => :sash
+      alias_method :points, :total_points
     end
 
     # Aliased to just #sash. I'm not sure how to get the order just right with the include block

@@ -4,34 +4,56 @@ describe Merit do
 
   describe 'without having merit' do
     before do
-      Object.send(:remove_const, :FakeModel) if defined? FakeModel
-      class FakeModel < ActiveRecord::Base
+      Object.send(:remove_const, :FakeUserModel) if defined? FakeUserModel
+      class FakeUserModel < ActiveRecord::Base
         self.table_name = "users"
       end
     end
-    subject { FakeModel }
+    subject { FakeUserModel }
     its(:has_merit?) { should == false }
 
     describe 'instances without merit' do
-      subject { FakeModel.new }
+      subject { FakeUserModel.new }
       it { should_not respond_to :award_points }
     end
   end
 
   describe 'with having merit' do
     before do
-      Object.send(:remove_const, :FakeModel) if defined? FakeModel
-      class FakeModel < ActiveRecord::Base
+      Object.send(:remove_const, :FakeUserModel) if defined? FakeUserModel
+      class FakeUserModel < ActiveRecord::Base
         self.table_name = "users"
         has_merit
       end
     end
-    subject { FakeModel }
+
+    subject { FakeUserModel }
     its(:has_merit?) { should == true }
 
     describe 'instances created' do
-      subject { FakeModel.new }
+      subject { FakeUserModel.new }
       it { should respond_to :award_points }
+    end
+
+    describe 'points total' do
+
+      let(:user) { FakeUserModel.create }
+      subject { user }
+
+      describe 'defaults' do
+        its(:total_points) { should == 0 }
+        its(:points) { should == 0 }
+      end
+
+      describe 'increment when points are added' do
+        before do
+          user.sash.awarded_points.create :points => 10
+          user.sash.reload
+        end
+        its(:total_points) { should == 10 }
+        its(:points) { should == 10 }
+      end
+
     end
   end
 

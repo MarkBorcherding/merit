@@ -57,8 +57,6 @@ ActiveRecord::Schema.define(:version => 20120801022220) do
     t.string   "name"
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
-    t.integer  "sash_id"
-    t.integer  "points",     :default => 0
     t.integer  "level",      :default => 0
   end
 
