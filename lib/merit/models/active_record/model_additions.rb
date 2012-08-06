@@ -19,11 +19,7 @@ module Merit
         delegate :badges, :to => :sash
 
         def award_points(points, options={})
-          params = {
-            :points => points,
-            :category => options[:in]
-          }
-          sash.awarded_points.create params
+          sash.awarded_points.create :points => points, :category => options[:in]
 
           # TODO Move this stuff to sash so we don't need to save User to add points.
           # We can just save Sash. We can also move it to counter cache or the like instead
