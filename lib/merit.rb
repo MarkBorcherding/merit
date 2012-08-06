@@ -14,6 +14,7 @@ module Merit
   mattr_accessor :orm
   @@orm = :active_record
 
+  require 'merit/models/merit'
   require "merit/models/#{Merit.orm}/model_additions"
 
   # Define user_model_name
