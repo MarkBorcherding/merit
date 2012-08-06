@@ -19,12 +19,12 @@ describe MeritAction do
     subject { merit_action.actions_to_point }
 
     describe 'when there are points for the action' do
-      let(:merit_action) { create :merit_action, :target_model => 'foos', :action_method => "show" }
+      let(:merit_action) { MeritAction.create :target_model => 'foos', :action_method => "show" }
       its(:count) { should == 1 }
     end
 
     describe 'when there are no points for the action' do
-      let(:merit_action) { create :merit_action, :target_model => 'foos', :action_method => "index" }
+      let(:merit_action) { MeritAction.create :target_model => 'foos', :action_method => "index" }
       its(:count) { should == 0 }
     end
   end
@@ -34,7 +34,7 @@ describe MeritAction do
 
     let(:user) { User.create }
     let(:user) { User.create }
-    let(:merit_action) { create :merit_action, :user_id => user.id }
+    let(:merit_action) { MeritAction.create :user_id => user.id }
 
     describe 'when no rules apply' do
       before  do
