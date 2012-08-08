@@ -7,4 +7,10 @@ class AwardedPoint < ActiveRecord::Base
     sash.total_points = sash.awarded_points.sum &:points
     sash.save
   end
+
+  # Scopes
+
+  def self.in(category)
+    where :category => category
+  end
 end
