@@ -16,6 +16,12 @@ module Merit
     end
 
   end
+
+  module InstanceMethods
+    def has_merit?
+      self.class.has_merit?
+    end
+  end
 end
 
 

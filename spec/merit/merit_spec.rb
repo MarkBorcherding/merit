@@ -15,6 +15,8 @@ describe Merit do
     describe 'instances without merit' do
       subject { FakeUserModel.new }
       it { should_not respond_to :award_points }
+      it { subject.class.has_merit?.should == false }
+      its(:has_merit?) { should == false }
     end
   end
 
@@ -39,6 +41,7 @@ describe Merit do
 
       let(:user) { FakeUserModel.create }
       subject { user }
+      it { subject.class.has_merit?.should == true }
 
       describe 'defaults' do
         its(:total_points) { should == 0 }
